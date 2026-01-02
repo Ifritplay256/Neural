@@ -65,6 +65,10 @@ void state(char state_message []){
 }
 
 void run(){
+    for (int n = 0; n < output_count; n++){
+        output[n] = biases[neurons_count+n];
+    }
+
     for (int n_c = 0; n_c < neurons_count; n_c++){
         neurons_values[n_c] = biases[n_c];
     }
@@ -76,7 +80,7 @@ void run(){
             float value = input[i] * weights[i*layers[0]+n];
             neurons_values[n] += value;
         }
-        activation(neurons_values[n]);
+        neurons_values[n] = activation(neurons_values[n]);
     }
 
     state("\n*1Layer values calculated:*");
@@ -86,11 +90,7 @@ void run(){
             float value = neurons_values[i] * weights[i*layers[0]+n];
             output[n] += value;
         }
-        activation(output[n]);
-    }
-
-    for (int n = 0; n < output_count; n++){
-        output[n] += biases[neurons_count+n];
+        output[n] = activation(output[n]);
     }
 
     state("\n*Output values calculated:*");
