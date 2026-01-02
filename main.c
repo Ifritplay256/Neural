@@ -1,4 +1,4 @@
-#define debug 0
+#define debug 1
 
 #include <stdio.h>
 #include <math.h>
@@ -87,7 +87,7 @@ void run(){
 
     for (int n = 0; n < output_count; n++){
         for (int i = 0; i < 2; i++){
-            float value = neurons_values[i] * weights[i*layers[0]+n];
+            float value = neurons_values[i] * weights[i*layers[0]+n+input_count*layers[0]-1];
             output[n] += value;
         }
         output[n] = activation(output[n]);
